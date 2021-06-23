@@ -1,13 +1,17 @@
 import {View, Text, Image} from 'react-native';
 import React from 'react';
 import {layoutStyles as styles} from './src/styles';
+// import { data } from '../data';
+
 const App = () => {
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.imageContainer}>
+      <Text> hello Header</Text>
+      <View style={styles.heroContainer}>
         <Image
+          style={styles.tinyLogo}
           source={{
-            uri: 'https://st.depositphotos.com/1007514/2506/i/950/depositphotos_25067721-stock-photo-mallard-duck-with-clipping-path.jpg',
+            uri: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/tribeca-loft-en-ny-03-1535103794.jpg',
           }}
         />
       </View>

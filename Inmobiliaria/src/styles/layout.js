@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
-  imageContainer: {
+  heroContainer: {
     flex: 1,
   },
   bodyContainer: {
@@ -16,7 +16,12 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     backgroundColor: 'red',
-    flex:7
+    flex: 7,
+  },
+  tinyLogo: {
+    margin: 10,
+    width: 372,
+    height: 230,
   },
 });
 
