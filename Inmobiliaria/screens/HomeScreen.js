@@ -9,15 +9,82 @@ import {
   Image,
   ScrollView,
   TextInput,
+  Pressable,
+  FlatList,
+  Card,
+  Dimensions,
 } from 'react-native';
 import colors from '../src/consts/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons'; //Tt - works
-
-//import {Icon} from 'react-native-elements'; //Rcrio
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import houses from './../src/consts/houses';
+const windowWidth = Dimensions.get('window').width; // Gets app window's width
 
 const HomeScreen = () => {
+  const ListCategories = () => {
+    const [selectedCategoryIndex, setselectedCategoryIndex] = React.useState(0);
+    const categoryList = ['Popular', 'Recommended', 'Nearest'];
+    return (
+      <View style={style.categoryListContainer}>
+        {categoryList.map((category, index) => (
+          <Pressable
+            // key={index}
+            onPress={() => setselectedCategoryIndex(index)}>
+            <Text
+              style={[
+                style.categoryListText,
+                index === selectedCategoryIndex && style.activeCategoryListText,
+              ]}>
+              {category}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+    );
+  };
+
+  // We bring in the  house prop
+  const Card = ({house}) => {
+    return (
+      <View style={style.card}>
+        <Image source={house.image} style={style.cardImage} />
+        <View
+          style={{
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            marginTop: 10,
+          }}>
+          <Text
+            style={{
+              fontSize: 22,
+              fontWeight: 'bold',
+              marginTop: 30,
+              marginBottom: 10,
+            }}>
+            {house.title}
+          </Text>
+          <Text style={{fontSize: 16, marginBottom: 10}}>{house.location}</Text>
+        </View>
+        <View style={{marginTop: 0, flexDirection: 'row'}}>
+          <View style={style.facility}>
+            <Icon name="king-bed" size={28} />
+            <Text style={style.facilityText}>3</Text>
+          </View>
+          <View style={style.facility}>
+            <Icon name="bathtub" size={28} />
+            <Text style={style.facilityText}>2</Text>
+          </View>
+          <View style={style.facility}>
+            <Icon name="aspect-ratio" size={28} />
+            <Text style={style.facilityText}>230 ft²</Text>
+          </View>
+        </View>
+        <Text style={{fontSize: 22, fontWeight: 'bold', marginTop: 0}}>
+          $440/m
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <StatusBar
@@ -53,6 +120,16 @@ const HomeScreen = () => {
             <Icon name="tune" color={colors.white} size={25} />
           </View>
         </View>
+        <ListCategories />
+        <FlatList
+          // contentContainerStyle={{
+          //   paddingTop: 20,
+          // }}
+          style={style.cardsContainer}
+          showsVerticalScrollIndicator={false} // removes scrollbar
+          data={houses}
+          renderItem={({item}) => <Card house={item} />}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -88,5 +165,55 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
+  },
+  categoryListContainer: {
+    marginTop: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 20,
+  },
+  categoryListText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingBottom: 5,
+    color: colors.grey,
+  },
+  activeCategoryListText: {
+    color: colors.dark,
+    borderBottomWidth: 1,
+    paddingBottom: 5,
+  },
+  cardsContainer: {
+    paddingTop: 20,
+  },
+  card: {
+    flexWrap: 'wrap',
+    height: 250,
+    backgroundColor: colors.white,
+    elevation: 9,
+    marginLeft: 10,
+    marginRight: 10,
+    padding: 5,
+    borderRadius: 20,
+    marginBottom: 25,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignContent: 'space-around',
+  },
+
+  cardImage: {
+    height: '65%',
+    width: windowWidth / 2 - 50,
+    borderRadius: 20,
+    alignItems: 'center',
+    marginTop: 40,
+  },
+  facility: {
+    flexDirection: 'row',
+    marginRight: 15,
+  },
+  facilityText: {
+    marginLeft: 5,
+    fontWeight: 'bold',
   },
 });
