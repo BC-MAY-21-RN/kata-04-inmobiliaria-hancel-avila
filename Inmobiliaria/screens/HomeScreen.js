@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {version} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,7 +11,6 @@ import {
   TextInput,
   Pressable,
   FlatList,
-  Card,
   Dimensions,
 } from 'react-native';
 import colors from '../src/consts/colors';
@@ -62,9 +61,20 @@ const HomeScreen = () => {
             }}>
             {house.title}
           </Text>
-          <Text style={{fontSize: 16, marginBottom: 10}}>{house.location}</Text>
+          <View style={style.facility}>
+            <Icon name="location-on" size={28} />
+            <Text style={{fontSize: 16, marginBottom: 10}}>
+              {house.location}
+            </Text>
+          </View>
         </View>
-        <View style={{marginTop: 0, flexDirection: 'row'}}>
+        <View
+          style={{
+            marginTop: 0,
+            flexDirection: 'row',
+            paddingTop: 10,
+            // backgroundColor: 'red',
+          }}>
           <View style={style.facility}>
             <Icon name="king-bed" size={28} />
             <Text style={style.facilityText}>3</Text>
@@ -78,9 +88,29 @@ const HomeScreen = () => {
             <Text style={style.facilityText}>230 ft²</Text>
           </View>
         </View>
-        <Text style={{fontSize: 22, fontWeight: 'bold', marginTop: 0}}>
-          $440/m
-        </Text>
+        <View
+          style={{
+            // backgroundColor: 'violet',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            // alignItems: 'flex-start',
+          }}>
+          <Text
+            style={{
+              fontSize: 22,
+              fontWeight: 'bold',
+              paddingTop: 10,
+              alignItems: 'flex-end',
+              // backgroundColor: 'blue',
+            }}>
+            $440/m
+          </Text>
+          <Icon
+            name="favorite-border"
+            size={28}
+            style={{alignSelf: 'flex-end', paddingRight: 20}}
+          />
+        </View>
       </View>
     );
   };
@@ -190,7 +220,7 @@ const style = StyleSheet.create({
     flexWrap: 'wrap',
     height: 250,
     backgroundColor: colors.white,
-    elevation: 9,
+    elevation: 15,
     marginLeft: 10,
     marginRight: 10,
     padding: 5,
@@ -215,5 +245,6 @@ const style = StyleSheet.create({
   facilityText: {
     marginLeft: 5,
     fontWeight: 'bold',
+    alignSelf: 'center',
   },
 });
