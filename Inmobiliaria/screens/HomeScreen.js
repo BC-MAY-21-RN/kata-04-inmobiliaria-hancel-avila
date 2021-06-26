@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {version} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,6 +12,7 @@ import {
   Pressable,
   FlatList,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import colors from '../src/consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -20,7 +21,7 @@ const windowWidth = Dimensions.get('window').width; // Gets app window's width
 
 const HomeScreen = () => {
   const ListCategories = () => {
-    const [selectedCategoryIndex, setselectedCategoryIndex] = React.useState(0);
+    const [selectedCategoryIndex, setselectedCategoryIndex] = useState(0);
     const categoryList = ['Popular', 'Recommended', 'Nearest'];
     return (
       <View style={style.categoryListContainer}>
@@ -43,6 +44,14 @@ const HomeScreen = () => {
 
   // We bring in the  house prop
   const Card = ({house}) => {
+    const [isFavoriteIcon, setFavoriteIcon] = useState(false);
+    let favIconName = isFavoriteIcon;
+    let favorited = favIconName ? 'favorite' : 'favorite-border';
+    const toggleFavIcon = () => {
+      setFavoriteIcon(!isFavoriteIcon);
+    };
+    // let favorited = 'favorite-border';
+
     return (
       <View style={style.card}>
         <Image source={house.image} style={style.cardImage} />
@@ -105,11 +114,12 @@ const HomeScreen = () => {
             }}>
             $440/m
           </Text>
-          <Icon
-            name="favorite-border"
-            size={28}
-            style={{alignSelf: 'flex-end', paddingRight: 20}}
-          />
+          <TouchableOpacity onPress={() => toggleFavIcon()}>
+            <Icon name={favorited} size={28} style={[style.favIcon]} />
+            {/* <Text>
+              {isFavoriteIcon ? 'Remove to Favorites' : 'Add from Favorites'}
+            </Text> */}
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -152,9 +162,6 @@ const HomeScreen = () => {
         </View>
         <ListCategories />
         <FlatList
-          // contentContainerStyle={{
-          //   paddingTop: 20,
-          // }}
           style={style.cardsContainer}
           showsVerticalScrollIndicator={false} // removes scrollbar
           data={houses}
@@ -246,5 +253,10 @@ const style = StyleSheet.create({
     marginLeft: 5,
     fontWeight: 'bold',
     alignSelf: 'center',
+  },
+  favIcon: {
+    alignSelf: 'flex-end',
+    paddingRight: 20,
+    color: colors.red,
   },
 });

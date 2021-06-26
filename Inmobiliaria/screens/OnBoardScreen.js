@@ -41,7 +41,9 @@ const OnBoardScreen = ({navigation}) => {
             paddingBottom: 40,
           }}
         />
-        <Pressable onPress={() => navigation.navigate('HomeScreen')}>
+        <Pressable
+          // key={index}
+          onPress={() => navigation.navigate('HomeScreen')}>
           <View style={style.btn}>
             <Text style={{color: colors.white}}>Get Started</Text>
           </View>
