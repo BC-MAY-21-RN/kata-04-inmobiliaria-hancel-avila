@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -50,11 +49,16 @@ const HomeScreen = () => {
     const toggleFavIcon = () => {
       setFavoriteIcon(!isFavoriteIcon);
     };
-    // let favorited = 'favorite-border';
 
     return (
       <View style={style.card}>
         <Image source={house.image} style={style.cardImage} />
+        <View style={style.calificationContainer}>
+          <View style={style.calificationBackground}>
+            <Icon name="star" size={18} style={style.califIcon} />
+            <Text style={style.calification}>{house.calif}</Text>
+          </View>
+        </View>
         <View
           style={{
             flexDirection: 'column',
@@ -82,7 +86,6 @@ const HomeScreen = () => {
             marginTop: 0,
             flexDirection: 'row',
             paddingTop: 10,
-            // backgroundColor: 'red',
           }}>
           <View style={style.facility}>
             <Icon name="king-bed" size={28} />
@@ -99,26 +102,19 @@ const HomeScreen = () => {
         </View>
         <View
           style={{
-            // backgroundColor: 'violet',
             flexDirection: 'column',
             justifyContent: 'space-around',
-            // alignItems: 'flex-start',
           }}>
           <Text
             style={{
               fontSize: 22,
               fontWeight: 'bold',
               paddingTop: 10,
-              alignItems: 'flex-end',
-              // backgroundColor: 'blue',
             }}>
             $440/m
           </Text>
           <TouchableOpacity onPress={() => toggleFavIcon()}>
             <Icon name={favorited} size={28} style={[style.favIcon]} />
-            {/* <Text>
-              {isFavoriteIcon ? 'Remove to Favorites' : 'Add from Favorites'}
-            </Text> */}
           </TouchableOpacity>
         </View>
       </View>
@@ -253,6 +249,38 @@ const style = StyleSheet.create({
     marginLeft: 5,
     fontWeight: 'bold',
     alignSelf: 'center',
+  },
+  calificationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'space-around',
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+  },
+  calificationBackground: {
+    alignItems: 'center',
+    backgroundColor: colors.blue,
+    borderRadius: 12,
+    marginTop: 2,
+    paddingHorizontal: 15,
+    paddingVertical: 1,
+    flexDirection: 'row',
+  },
+  calification: {
+    alignSelf: 'center',
+    alignContent: 'flex-end',
+    alignItems: 'baseline',
+    backgroundColor: colors.blue,
+    borderRadius: 50,
+    color: colors.white,
+    marginTop: 3,
+    paddingHorizontal: 3,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  califIcon: {
+    color: colors.yellow,
+    alignContent: 'flex-end',
   },
   favIcon: {
     alignSelf: 'flex-end',
